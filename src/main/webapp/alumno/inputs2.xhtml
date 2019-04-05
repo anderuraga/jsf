@@ -1,0 +1,100 @@
+<html lang="es" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<div>
+
+				
+
+					<h:commandLink immediate="true" action="#{alumnoBean.volver}" value="Volver" styleClass="btn btn-outline-warning" />
+					
+					
+					<!-- inputs ocultos -->					
+					<h:inputHidden value="#{alumnoBean.alumno.id}"/>
+					
+					
+					<div class="form-group">
+						<label for="nombre"><h:outputText value="Nombre: (admin no puedes usar)" /></label>
+						<h:inputText id="nombre" 
+						             label="Nombre" 
+						             value="#{alumnoBean.alumno.nombre}"
+						             p:placeholder="Mínimo 2 letras Máximo 150"
+						             styleClass="form-control">
+						       <c:ajax event="keyup" execute="nombre" render="ajaxNombreSalida" listener="#{alumnoBean.checkNombre}"/>      
+						</h:inputText>
+						<h:outputText id="ajaxNombreSalida"/>             
+						<h:message for="nombre" styleClass="text-danger"/>
+					</div>	
+					
+					
+					<div class="form-group">
+						<label for="apellido"><h:outputText value="Apellido:" /></label>
+						<h:inputText id="apellido" 
+						             label="Apellido" 
+						             value="#{alumnoBean.alumno.apellido}"	
+						             immediate="true"
+						             onchange="this.form.submit()"
+						             valueChangeListener="#{alumnoBean.apellidoChangeListener}"					             
+						             styleClass="form-control"/>						
+					</div>
+				
+				
+					<div class="form-group">
+							<label for="edad"><h:outputText value="Edad: (* cuando modifiques prueba a poner 37)" /></label>
+							<h:inputText id="edad" 
+							             label="Edad" 
+							             value="#{alumnoBean.alumno.edad}"
+							             p:placeholder="minimo 18 maximo 99"
+							             p:type="number"
+							             p:min="18"
+							             p:max="99"
+							             p:step="1"							             
+							             styleClass="form-control"/>
+							<h:message for="edad" styleClass="text-danger"/>
+					</div>	
+					
+					<div class="form-group">
+							<label for="sueldo"><h:outputText value="Sueldo:" /></label>
+							<h:inputText id="sueldo" 
+							             label="sueldo" 
+							             value="#{alumnoBean.alumno.sueldo}"
+							             p:placeholder="Sueldo en Euros"
+							             styleClass="form-control"/>
+							<h:message for="sueldo" styleClass="text-danger"/>
+					</div>	
+					
+					
+					<div class="form-group">
+						<label for="nacimieto"><h:outputText value="Fecha Nacimiento:" /></label>
+						<h:inputText id="nacimieto" 
+						             label="Fecha Nacimiento" 
+						             value="#{alumnoBean.alumno.nacimieto}"
+						             p:placeholder="dd-mm-aaaa numero, ej: 31-12-1998"
+						             styleClass="form-control" >
+						      <c:convertDateTime pattern="dd/MM/yyyy"/>
+						 </h:inputText>            
+						             
+						<h:message for="nacimieto" styleClass="text-danger"/>
+					</div>	
+					
+					<div class="form-group">
+						<label for="dni"><h:outputText value="DNI:" /></label>
+						<h:inputText id="dni" 
+						             label="dni" 
+						             value="#{alumnoBean.alumno.dni}"
+						             p:placeholder="8 Número y letra sin espacios, ej: 1111111H"
+						             styleClass="form-control"/>
+						<h:message for="dni" styleClass="text-danger"/>
+					</div>	
+				
+					<div class="form-group">
+						<label for="aprobado"><h:outputText value="Aprobado:" /></label>
+						<h:selectBooleanCheckbox id="aprobado" value="#{alumnoBean.alumno.aprobado}" styleClass="form-control"/>
+					</div>
+</div>
+
+
+</html>				

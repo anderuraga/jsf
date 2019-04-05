@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    
+    
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      
+      <h:link outcome="/index" value="" >
+      	<h:graphicImage value="/resources/images/jsf_logo.png" alt="banner jsf" id="logo" styleClass="logo"/>
+      </h:link>
+     
+     
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+        
+          <li class="nav-item active">
+             <h:link outcome="/index" value="Inicio" styleClass="nav-link" ></h:link>
+          </li>
+
+		  <li class="nav-item active">
+			 <h:link outcome="/clase" value="Clase" styleClass="nav-link"/>
+		  </li>
+		
+		  <li class="nav-item active">
+			<h:link outcome="/alumno/form-nuevo" value="Crear Alumno" styleClass="nav-link"/>
+		  </li>
+
+
+			
+
+			<h:form>	
+				<h:selectOneMenu 
+						value="#{idiomaController.locale}"
+						onchange="submit()"		
+						valueChangeListener="#{idiomaController.cambioIdiomaListener}">
+					<c:selectItem itemDisabled="true" itemLabel="--cambiar--"></c:selectItem>
+					<c:selectItems value="#{idiomaController.idiomas}" ></c:selectItems>
+				</h:selectOneMenu>
+			</h:form>	
+		
+		
+        </ul>
+        
+      </div>
+      
+    
+      
+    </nav>
+    
+        
+      <div class="container-fluid bg-primary">
+      	<span class="text-white">#{loginController.usuario}</span>
+      	
+      	
+      	<h:form rendered="#{loginController.usuario!=null}">
+      		<h:commandLink value="LOGOUT" action="#{loginController.logout}" styleClass="btn btn-danger" />
+      	</h:form>
+      </div>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html lang="es" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"    
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    
+	<body>
+	
+	 		
+		<ui:composition template="/WEB-INF/templates/base.xhtml">
+		
+				
+			
+			<ui:define name="content">
+			
+				<c:event type="preRenderView" listener="#{loginController.checkLoginEvent}" /> 
+			
+				
+				<div class="alert alert-#{flash.alertTipo} alert-dismissible fade show" role="alert">
+				  #{flash.alertMensaje}
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true"><h:outputText value="&amp;times;" escape="false" /></span>
+				  </button>
+				</div>
+				
+				
+				
+				<h1><span class="badge badge-pill badge-secondary">#{fn:length(alumnoBean.alumnos)}</span> Alumnos</h1>
+		
+				<!-- 
+				<h:outputText value="#{alumnoBean.alumnos}" />
+		 		-->
+		
+				<h:dataTable value="#{alumnoBean.alumnos}" var="a" styleClass="table">
+				
+					<h:column>
+						<c:facet name="header">Id</c:facet>						
+						#{a.id}
+					</h:column>
+				
+					<h:column>
+						<c:facet name="header">Alumno</c:facet>						
+						#{a.nombre}, #{a.apellido}
+					</h:column>
+					
+					<h:column>
+						<c:facet name="header">DNI</c:facet>						
+												
+						<h:outputText value="#{a.dni}">
+							<c:converter converterId="conversorDni" />
+							<c:attribute name="separador" value="-"/>
+						</h:outputText>
+						
+					</h:column>
+					
+					<h:column>
+						<c:facet name="header">Edad</c:facet>
+						#{a.edad}
+					</h:column>
+					
+					<h:column>						
+						<c:facet name="header">Sueldo</c:facet>
+												
+						<h:outputText value="#{a.sueldo}">
+							<c:convertNumber currencyCode="EUR" type="currency" />
+						</h:outputText>
+						
+					</h:column>
+					
+					<h:column>						
+						<c:facet name="header">Aprobado</c:facet>
+						<!-- 
+							#{(a.aprobado)?'SI':'NO'}
+						 -->
+						
+						<h:outputText rendered="#{a.aprobado}" styleClass="far fa-2x fa-smile-wink text-success" />
+						<h:outputText rendered="#{!a.aprobado}" styleClass="far fa-2x fa-sad-cry text-danger" />
+												
+					</h:column>
+					
+					<h:column>						
+						<c:facet name="header">F.Nacimiento</c:facet>
+						
+						<h:outputText value="#{a.nacimieto}">
+							<c:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+							
+					</h:column>
+					
+					
+					<h:column>
+						<h:form>
+							<h:commandButton action="#{alumnoBean.modificar(a)}" value="Modificar" styleClass="btn btn-outline-warning"/>							
+						</h:form>					
+					</h:column>
+					
+					<h:column>
+						<h:form>		
+							<h:commandButton action="#{alumnoBean.eliminar(a)}" value="Eliminar" styleClass="btn btn-outline-danger"/>
+						</h:form>					
+					</h:column>
+	
+					
+					
+				</h:dataTable>
+				
+				<div class="row mb-4">
+					<div class="col">
+					
+						<h2>Listado de Aprobados</h2>
+						<ul class="list-group">
+							<ui:repeat value="#{alumnoBean.alumnos}" var="a" varStatus="vs">
+								<h:outputText rendered="#{a.aprobado}">
+									<li class="list-group-item">#{a.nombre},#{a.apellido} index:#{vs.index}</li>
+								</h:outputText>
+							</ui:repeat>
+						</ul>
+					
+					
+					</div>
+					<div class="col">
+					
+						<h2>Listado de Suspendidos</h2>
+						<ul class="list-group">
+							<ui:repeat value="#{alumnoBean.alumnos}" var="a" varStatus="vs">
+								
+								<h:outputText rendered="#{!a.aprobado}">
+									<li class="list-group-item">#{a.nombre},#{a.apellido}  index:#{vs.index}</li>
+								</h:outputText>
+								
+							</ui:repeat>
+						</ul>
+						
+					</div>
+				</div>
+				
+				
+				
+				
+				
+			</ui:define>
+			 
+		
+		</ui:composition>
+		
+	</body>
+</html>    
+    

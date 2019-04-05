@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="es" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    
+	<body>
+	
+		<ui:composition template="/WEB-INF/templates/base.xhtml">
+			
+			
+			
+			
+			
+			<ui:define name="content">
+			
+				<h1>Login</h1>
+				
+				<h:messages styleClass="text-danger" globalOnly="true"  showDetail="true" showSummary="false"/>
+				
+				<h:form>
+				
+					<h:inputText value="#{loginController.nombre}" p:placeholder="Usuario"/>
+									
+					<br /> 
+				
+					<h:inputSecret value="#{loginController.password}" p:placeholder="Contraseña"/>
+				
+					<h:commandButton action="#{loginController.login}"/>
+				
+				</h:form>
+				
+			</ui:define>
+			 
+		
+		</ui:composition>
+		
+	</body>
+</html>    
+    

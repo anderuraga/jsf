@@ -1,0 +1,17 @@
+/****************************************
+*   @author: Ander Uraga Real  
+*   @version: 1.0
+***********************************/
+
+h1{
+	color: #0099FF;
+}
+
+main{
+	min-height: 65vh;
+}
+
+#logo{
+	width: 45px;
+	height: 45px;
+}
